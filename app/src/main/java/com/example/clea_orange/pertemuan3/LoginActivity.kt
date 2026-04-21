@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.clea_orange.databinding.ActivityLoginBinding
+import com.example.clea_orange.pertemuan4.DashboardActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -21,10 +22,9 @@ class LoginActivity : AppCompatActivity() {
             val password = binding.etPassword.text.toString()
 
             if (username.isNotEmpty() && password.isNotEmpty()) {
-                // Berpindah ke WelcomeActivity
-                val intent = Intent(this, WelcomeActivity::class.java)
-                intent.putExtra("USER_NAME", username) // Mengirim data nama
+                val intent = Intent(this, DashboardActivity::class.java)
                 startActivity(intent)
+                finish() // Menutup LoginActivity agar tidak bisa kembali dengan tombol back
             } else {
                 Toast.makeText(this, "Tolong isi semua field", Toast.LENGTH_SHORT).show()
             }

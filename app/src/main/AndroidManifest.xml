@@ -8,17 +8,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cleaorange">
-
-        <activity android:name=".pertemuan3.LoginActivity" android:exported="true">
+        <activity
+            android:name=".pertemuan4.Tampilan3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".pertemuan4.Tampilan2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".pertemuan4.DashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pertemuan3.LoginActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".pertemuan3.WelcomeActivity" android:exported="false" />
-        <activity android:name=".pertemuan2.HitungActivity" android:exported="false" />
-        <activity android:name=".MainActivity" android:exported="false" />
-
+        <activity
+            android:name=".pertemuan3.WelcomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pertemuan2.HitungActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
     </application>
+
 </manifest>

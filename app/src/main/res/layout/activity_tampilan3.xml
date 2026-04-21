@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/j" /> <View
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#66000000" /> <androidx.cardview.widget.CardView
+    android:id="@+id/cardContent"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_marginTop="240dp"
+    app:cardBackgroundColor="@color/background_light"
+    app:cardCornerRadius="40dp"
+    app:cardElevation="8dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="90dp" android:paddingBottom="24dp">
+
+        <TextView
+            android:id="@+id/tvJudulHalaman"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:fontFamily="@font/googlesans"
+            android:gravity="center"
+            android:text="Judul Halaman"
+            android:textColor="@color/red_primary"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@id/btnBack"
+            app:layout_constraintTop_toBottomOf="@id/tvJudulHalaman">
+
+            <TextView
+                android:id="@+id/tvDescHalaman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:fontFamily="@font/googlesans"
+                android:gravity="center"
+                android:lineSpacingExtra="6dp"
+                android:text="Deskripsi halaman akan muncul di sini..."
+                android:textColor="@color/text_secondary"
+                android:textSize="16sp" />
+        </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/googlesans"
+            android:text="Kembali"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:backgroundTint="@color/red_primary"
+            app:cornerRadius="16dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivGambarCustom"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:elevation="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/i"
+        app:cornerSize="32dp" app:layout_constraintBottom_toTopOf="@id/cardContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cardContent"
+        app:strokeColor="@color/white"
+        app:strokeWidth="6dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
