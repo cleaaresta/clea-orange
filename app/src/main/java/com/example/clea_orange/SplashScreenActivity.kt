@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.clea_orange.pertemuan4.DashboardActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -34,8 +33,8 @@ class SplashScreenActivity : AppCompatActivity() {
             val isLogin = sharedPref.getBoolean("isLogin", false)
 
             if (isLogin) {
-                // Jika sudah login, langsung ke Dashboard
-                val intent = Intent(this@SplashScreenActivity, DashboardActivity::class.java)
+                // Jika sudah login, diarahkan ke BaseActivity yang memiliki BottomNavigation
+                val intent = Intent(this@SplashScreenActivity, BaseActivity::class.java)
                 startActivity(intent)
             } else {
                 // Jika belum, ke halaman Login

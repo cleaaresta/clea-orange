@@ -1,4 +1,4 @@
-package com.example.clea_orange.pertemuan6
+package com.example.clea_orange.Home.pertemuan6
 
 import android.os.Bundle
 import android.webkit.WebViewClient

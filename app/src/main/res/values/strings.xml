@@ -30,4 +30,6 @@
     <string name="logout_yes">Ya</string>
     <string name="logout_no">Tidak</string>
     <string name="logout_cancelled">Logout dibatalkan</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.clea_orange.pertemuan2
+package com.example.clea_orange.Home.pertemuan2
 
 import android.os.Bundle
 import android.util.Log

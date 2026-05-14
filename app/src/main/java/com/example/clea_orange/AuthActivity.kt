@@ -28,13 +28,12 @@ class AuthActivity : AppCompatActivity() {
             insets
         }
 
-        // 1. Definisikan SharedPreferences
         val sharedPref = getSharedPreferences("user_pref", Context.MODE_PRIVATE)
 
-        // Kondisi jika isLogin bernilai true (Pindahkan ke MainActivity jika sudah login)
+        // Jika sudah login, langsung ke BaseActivity yang berisi BottomNavigation
         val isLogin = sharedPref.getBoolean("isLogin", false)
         if (isLogin) {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, BaseActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -44,13 +43,12 @@ class AuthActivity : AppCompatActivity() {
             val password = binding.etPassword.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                // 2. Set isLogin menjadi true dan simpan username (email) jika berhasil
                 val editor = sharedPref.edit()
                 editor.putBoolean("isLogin", true)
                 editor.putString("username", email)
                 editor.apply()
 
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, BaseActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {

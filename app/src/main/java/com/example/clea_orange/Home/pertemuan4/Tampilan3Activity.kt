@@ -1,22 +1,21 @@
-package com.example.clea_orange.pertemuan4
+package com.example.clea_orange.Home.pertemuan4
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.clea_orange.databinding.ActivityTampilan2Binding
+import com.example.clea_orange.databinding.ActivityTampilan3Binding
 
-class Tampilan2Activity : AppCompatActivity() {
+class Tampilan3Activity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityTampilan2Binding
+    private lateinit var binding: ActivityTampilan3Binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTampilan2Binding.inflate(layoutInflater)
+        binding = ActivityTampilan3Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Sembunyikan ActionBar bawaan
         supportActionBar?.hide()
 
-        // Ambil data dari Intent
         val judul = intent.getStringExtra("EXTRA_JUDUL")
         val deskripsi = intent.getStringExtra("EXTRA_DESC")
 
@@ -25,7 +24,7 @@ class Tampilan2Activity : AppCompatActivity() {
 
         // LOGIKA TOMBOL KEMBALI
         binding.btnBack.setOnClickListener {
-            finish() // Menutup halaman ini dan kembali
+            finish()
         }
     }
 }

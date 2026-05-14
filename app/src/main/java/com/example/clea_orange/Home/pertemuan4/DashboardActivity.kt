@@ -1,14 +1,13 @@
-package com.example.clea_orange.pertemuan4
+package com.example.clea_orange.Home.pertemuan4
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.clea_orange.AuthActivity
 import com.example.clea_orange.databinding.ActivityDashboardBinding
-import com.example.clea_orange.pertemuan2.HitungActivity
-import com.example.clea_orange.pertemuan6.WebViewActivity
+import com.example.clea_orange.Home.pertemuan2.HitungActivity
+import com.example.clea_orange.Home.pertemuan6.WebViewActivity
 import com.google.android.material.snackbar.Snackbar
 
 class DashboardActivity : AppCompatActivity() {
@@ -21,7 +20,7 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Mengambil data username dari SharedPreferences
-        val sharedPref = getSharedPreferences("user_pref", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
         val username = sharedPref.getString("username", "Pengguna")
         binding.tvWelcomeUser.text = "Halo, $username!"
 
@@ -64,7 +63,7 @@ class DashboardActivity : AppCompatActivity() {
             .setTitle("Konfirmasi Logout")
             .setMessage("Apakah Anda yakin ingin keluar?")
             .setPositiveButton("Ya") { _, _ ->
-                val sharedPref = getSharedPreferences("user_pref", Context.MODE_PRIVATE)
+                val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
                 with(sharedPref.edit()) {
                     clear()
                     apply()

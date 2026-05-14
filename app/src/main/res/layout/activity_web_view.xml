@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".pertemuan6.WebViewActivity">
+    tools:context=".Home.pertemuan6.WebViewActivity">
 
     <!-- Tambahkan Toolbar untuk Tombol Back -->
     <androidx.appcompat.widget.Toolbar

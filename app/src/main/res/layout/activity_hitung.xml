@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="24dp"
     android:background="#FFF0F5"
-    tools:context=".pertemuan2.HitungActivity">
+    tools:context=".Home.pertemuan2.HitungActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

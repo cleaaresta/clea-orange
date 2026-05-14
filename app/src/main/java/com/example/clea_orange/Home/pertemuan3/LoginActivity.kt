@@ -1,11 +1,11 @@
-package com.example.clea_orange.pertemuan3
+package com.example.clea_orange.Home.pertemuan3
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.clea_orange.databinding.ActivityLoginBinding
-import com.example.clea_orange.pertemuan4.DashboardActivity
+import com.example.clea_orange.Home.pertemuan4.DashboardActivity
 
 class LoginActivity : AppCompatActivity() {
 
