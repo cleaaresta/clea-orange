@@ -18,10 +18,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnLogin.setOnClickListener {
-            val username = binding.etUsername.text.toString()
+            // Menyesuaikan dengan ID baru 'etEmail' dari layout yang telah diperbarui
+            val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
 
-            if (username.isNotEmpty() && password.isNotEmpty()) {
+            if (email.isNotEmpty() && password.isNotEmpty()) {
                 val intent = Intent(this, DashboardActivity::class.java)
                 startActivity(intent)
                 finish() // Menutup LoginActivity agar tidak bisa kembali dengan tombol back

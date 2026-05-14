@@ -1,12 +1,14 @@
 package com.example.clea_orange.pertemuan4
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.clea_orange.AuthActivity
 import com.example.clea_orange.databinding.ActivityDashboardBinding
 import com.example.clea_orange.pertemuan2.HitungActivity
-import com.example.clea_orange.pertemuan3.LoginActivity
+import com.example.clea_orange.pertemuan6.WebViewActivity
 import com.google.android.material.snackbar.Snackbar
 
 class DashboardActivity : AppCompatActivity() {
@@ -18,30 +20,33 @@ class DashboardActivity : AppCompatActivity() {
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Tombol 1: Ke HitungActivity
+        // Mengambil data username dari SharedPreferences
+        val sharedPref = getSharedPreferences("user_pref", Context.MODE_PRIVATE)
+        val username = sharedPref.getString("username", "Pengguna")
+        binding.tvWelcomeUser.text = "Halo, $username!"
+
+        // Menu 1: Bangun Ruang
         binding.btnBangunRuang.setOnClickListener {
-            pindahHalaman(HitungActivity::class.java, "Rumus Bangun Ruang", "Halaman ini menghitung Luas dan Volume")
+            pindahHalaman(HitungActivity::class.java, "Bangun Ruang", "Menghitung Luas dan Volume")
         }
 
-        // Tombol 2: Ke Tampilan2Activity
+        // Menu 2: Ekosistem (Pastikan Tampilan2Activity ada di package yang sama)
         binding.btnCustom1.setOnClickListener {
-            pindahHalaman(
-                Tampilan2Activity::class.java,
-                "Ekosistem Asri",
-                "Lingkungan yang ideal adalah simfoni antara alam dan ketenangan. Di sini, udara segar mengalir di antara pepohonan rindang, menciptakan ruang bernapas bagi jiwa. Cahaya matahari yang menyusup di sela dedaunan memberikan energi positif, sementara kebersihan yang terjaga mencerminkan harmoni antara manusia dan bumi yang kita pijak."
-            )
+            pindahHalaman(Tampilan2Activity::class.java, "Ekosistem", "Harmoni antara alam dan ketenangan.")
         }
 
-        // Tombol 3: Ke Tampilan3Activity
+        // Menu 3: Inspirasi (Pastikan Tampilan3Activity ada di package yang sama)
         binding.btnCustom2.setOnClickListener {
-            pindahHalaman(
-                Tampilan3Activity::class.java,
-                "Ruang Inspirasi",
-                "Lingkungan yang sehat bukan sekadar tempat, melainkan sumber inspirasi. Ruang yang tertata rapi dengan sentuhan elemen hijau mampu meningkatkan kreativitas dan kejernihan berpikir. Dalam lingkungan yang mendukung, setiap sudut menjadi peluang untuk tumbuh, berkembang, dan menciptakan inovasi yang berdampak bagi masa depan yang lebih hijau."
-            )
+            pindahHalaman(Tampilan3Activity::class.java, "Inspirasi", "Sumber kreativitas bagi masa depan.")
         }
 
-        // Tombol 4: Logout dengan Konfirmasi
+        // Menu 4: Web Bina Desa (WebView)
+        binding.btnWeb.setOnClickListener {
+            val intent = Intent(this, WebViewActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Logout
         binding.btnLogout.setOnClickListener {
             showLogoutDialog()
         }
@@ -58,12 +63,19 @@ class DashboardActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle("Konfirmasi Logout")
             .setMessage("Apakah Anda yakin ingin keluar?")
-            .setPositiveButton("Iya") { _, _ ->
-                val intent = Intent(this, LoginActivity::class.java)
+            .setPositiveButton("Ya") { _, _ ->
+                val sharedPref = getSharedPreferences("user_pref", Context.MODE_PRIVATE)
+                with(sharedPref.edit()) {
+                    clear()
+                    apply()
+                }
+                val intent = Intent(this, AuthActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
+                finish()
             }
-            .setNegativeButton("Tidak") { _, _ ->
+            .setNegativeButton("Tidak") { dialog, _ ->
+                dialog.dismiss()
                 Snackbar.make(binding.root, "Logout dibatalkan", Snackbar.LENGTH_SHORT).show()
             }
             .show()

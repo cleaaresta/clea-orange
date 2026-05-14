@@ -9,4 +9,12 @@
     <color name="text_primary">#212529</color>
     <color name="text_secondary">#6C757D</color>
     <color name="card_bg">#FFFFFF</color>
+
+    <!-- New colors for Login Screen -->
+    <color name="primary_blue">#5D5FEF</color>
+    <color name="text_hint">#999999</color>
+    <color name="text_header_secondary">#E0E0E0</color>
+    <color name="text_dark">#1A1A1A</color>
+    <color name="text_label">#333333</color>
+    <color name="text_footer">#AAAAAA</color>
 </resources>
