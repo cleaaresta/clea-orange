@@ -20,10 +20,16 @@ class WebViewActivity : AppCompatActivity() {
         binding = ActivityWebViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Menyesuaikan padding agar tidak tertutup notch/status bar
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        // Set klik tombol back di toolbar
+        binding.toolbar.setNavigationOnClickListener {
+            finish() // Kembali ke Dashboard
         }
 
         setupWebView()
@@ -32,18 +38,14 @@ class WebViewActivity : AppCompatActivity() {
 
     private fun setupWebView() {
         binding.webView.apply {
-            // Aktifkan JavaScript jika diperlukan
             settings.javaScriptEnabled = true
-
-            // Agar link dibuka di dalam aplikasi, bukan browser eksternal
             webViewClient = WebViewClient()
-
-            // Masukkan link Web Bina Desa
             loadUrl("https://posyandu-admin.alwaysdata.net")
         }
     }
 
     private fun setupBackNavigation() {
+        // Logika tombol back fisik (HP) untuk kembali ke halaman web sebelumnya
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (binding.webView.canGoBack()) {

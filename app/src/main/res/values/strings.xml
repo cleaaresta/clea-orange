@@ -12,4 +12,22 @@
     <string name="btn_login">Masuk Aplikasi</string>
     <string name="copyright">© 2025 Sistem Informasi Posyandu Digital</string>
     <string name="footer_register">Belum memiliki akun? Hubungi Dinas Kesehatan</string>
+
+    <!-- Dashboard Strings -->
+    <string name="welcome_user">Halo, %1$s!</string>
+    <string name="welcome_sub">Mari pantau kesehatan si kecil hari ini.</string>
+    <string name="info_posyandu">Info Posyandu</string>
+    <string name="jadwal_rutin">Jadwal pemeriksaan rutin bulan ini.</string>
+    <string name="layanan_utama">Layanan Utama</string>
+    <string name="btn_bangun_ruang">Bangun Ruang</string>
+    <string name="btn_ekosistem">Ekosistem</string>
+    <string name="btn_inspirasi">Inspirasi</string>
+    <string name="btn_web_admin">Web Admin</string>
+    <string name="dev_name">Clearesta Rahimah Thee</string>
+    <string name="dev_nim">NIM: 2457301029</string>
+    <string name="logout_confirm_title">Konfirmasi Logout</string>
+    <string name="logout_confirm_msg">Apakah Anda yakin ingin keluar?</string>
+    <string name="logout_yes">Ya</string>
+    <string name="logout_no">Tidak</string>
+    <string name="logout_cancelled">Logout dibatalkan</string>
 </resources>

@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.clea_orange.databinding.ActivityLoginBinding
-import com.example.clea_orange.pertemuan4.DashboardActivity
 
 class AuthActivity : AppCompatActivity() {
 
@@ -32,10 +31,10 @@ class AuthActivity : AppCompatActivity() {
         // 1. Definisikan SharedPreferences
         val sharedPref = getSharedPreferences("user_pref", Context.MODE_PRIVATE)
 
-        // Kondisi jika isLogin bernilai true (Pindahkan ke Dashboard jika sudah login)
+        // Kondisi jika isLogin bernilai true (Pindahkan ke MainActivity jika sudah login)
         val isLogin = sharedPref.getBoolean("isLogin", false)
         if (isLogin) {
-            val intent = Intent(this, DashboardActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -51,7 +50,7 @@ class AuthActivity : AppCompatActivity() {
                 editor.putString("username", email)
                 editor.apply()
 
-                val intent = Intent(this, DashboardActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
