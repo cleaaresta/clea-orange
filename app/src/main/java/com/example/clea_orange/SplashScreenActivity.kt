@@ -27,7 +27,7 @@ class SplashScreenActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            delay(2000) // simulasi loading selama 2 detik
+            delay(1000) // simulasi loading selama 2 detik
             
             val sharedPref = getSharedPreferences("user_pref", Context.MODE_PRIVATE)
             val isLogin = sharedPref.getBoolean("isLogin", false)

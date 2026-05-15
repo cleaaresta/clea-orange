@@ -39,21 +39,38 @@ class AuthActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
-            val email = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
+            val inputIdentifier = binding.etEmail.text.toString()
+            val inputPassword = binding.etPassword.text.toString()
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
+            // Mengambil data yang tersimpan saat registrasi
+            val registeredUsername = sharedPref.getString("username", null)
+            val registeredPassword = sharedPref.getString("password", null)
+            val registeredEmail = sharedPref.getString("email", null)
+
+            if (inputIdentifier.isEmpty() || inputPassword.isEmpty()) {
+                Toast.makeText(this, "Tolong isi semua field", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Validasi: Input harus cocok dengan Username ATAU Email, dan Password harus cocok
+            if ((inputIdentifier == registeredUsername || inputIdentifier == registeredEmail) && inputPassword == registeredPassword) {
                 val editor = sharedPref.edit()
                 editor.putBoolean("isLogin", true)
-                editor.putString("username", email)
+                // Kita simpan username yang sedang aktif login
+                editor.putString("current_user", registeredUsername)
                 editor.apply()
 
                 val intent = Intent(this, BaseActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
-                Toast.makeText(this, "Tolong isi semua field", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Username/Email atau Password salah", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.btnRegisterGmail.setOnClickListener {
+            val intent = Intent(this, GmailInputActivity::class.java)
+            startActivity(intent)
         }
     }
 }

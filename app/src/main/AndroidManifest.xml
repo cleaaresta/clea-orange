@@ -13,6 +13,15 @@
         android:theme="@style/Theme.Cleaorange"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".SuccessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegistrationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GmailInputActivity"
+            android:exported="false" />
+        <activity
             android:name=".BaseActivity"
             android:exported="false" />
         <activity
