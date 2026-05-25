@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_blue"
+    android:background="@drawable/bg_gradient"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,104 +14,106 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="24dp"
             app:cardElevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="32dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Form Registrasi"
-                    android:textColor="@color/text_dark"
-                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textSize="28sp"
                     android:textStyle="bold" />
 
-                <!-- Nama -->
                 <TextView
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Silahkan isi data diri anda"
+                    android:textColor="#757575"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Nama"
-                    android:textStyle="bold" />
-                <EditText
-                    android:id="@+id/etRegNama"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/edit_text_bg"
                     android:hint="Nama Lengkap"
-                    android:inputType="textPersonName"
-                    android:paddingHorizontal="16dp" />
+                    app:startIconDrawable="@android:drawable/ic_menu_edit">
 
-                <!-- Email -->
-                <TextView
-                    android:layout_width="wrap_content"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etRegNama"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Email"
-                    android:textStyle="bold" />
-                <EditText
-                    android:id="@+id/etRegEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/edit_text_bg"
-                    android:enabled="false"
-                    android:inputType="textEmailAddress"
-                    android:paddingHorizontal="16dp" />
+                    android:hint="Email"
+                    app:startIconDrawable="@android:drawable/ic_dialog_email">
 
-                <!-- Username -->
-                <TextView
-                    android:layout_width="wrap_content"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etRegEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Username"
-                    android:textStyle="bold" />
-                <EditText
-                    android:id="@+id/etRegUsername"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/edit_text_bg"
                     android:hint="Username"
-                    android:inputType="text"
-                    android:paddingHorizontal="16dp" />
+                    app:startIconDrawable="@android:drawable/ic_menu_myplaces">
 
-                <!-- Password -->
-                <TextView
-                    android:layout_width="wrap_content"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etRegUsername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Password"
-                    android:textStyle="bold" />
-                <EditText
-                    android:id="@+id/etRegPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/edit_text_bg"
                     android:hint="Password"
-                    android:inputType="textPassword"
-                    android:paddingHorizontal="16dp" />
+                    app:passwordToggleEnabled="true"
+                    app:startIconDrawable="@android:drawable/ic_lock_idle_lock">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etRegPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDoRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="60dp"
                     android:layout_marginTop="32dp"
-                    android:text="Registrasi"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
+                    android:text="DAFTAR SEKARANG"
+                    android:textAllCaps="true"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:backgroundTint="@color/primary_blue"
-                    app:cornerRadius="8dp" />
+                    app:cornerRadius="12dp"
+                    app:elevation="4dp" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

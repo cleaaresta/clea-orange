@@ -29,25 +29,26 @@ class DashboardActivity : AppCompatActivity() {
             pindahHalaman(HitungActivity::class.java, "Bangun Ruang", "Menghitung Luas dan Volume")
         }
 
-        // Menu 2: Ekosistem (Pastikan Tampilan2Activity ada di package yang sama)
+        // Menu 2: Ekosistem
         binding.btnCustom1.setOnClickListener {
             pindahHalaman(Tampilan2Activity::class.java, "Ekosistem", "Harmoni antara alam dan ketenangan.")
         }
 
-        // Menu 3: Inspirasi (Pastikan Tampilan3Activity ada di package yang sama)
+        // Menu 3: Inspirasi
         binding.btnCustom2.setOnClickListener {
             pindahHalaman(Tampilan3Activity::class.java, "Inspirasi", "Sumber kreativitas bagi masa depan.")
         }
 
-        // Menu 4: Web Bina Desa (WebView)
+        // Menu 4: Web Search
         binding.btnWeb.setOnClickListener {
             val intent = Intent(this, WebViewActivity::class.java)
             startActivity(intent)
         }
 
-        // Logout
-        binding.btnLogout.setOnClickListener {
-            showLogoutDialog()
+        // Buka Halaman Pengaturan (ListView)
+        binding.btnSettings.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -56,27 +57,5 @@ class DashboardActivity : AppCompatActivity() {
         intent.putExtra("EXTRA_JUDUL", judul)
         intent.putExtra("EXTRA_DESC", desc)
         startActivity(intent)
-    }
-
-    private fun showLogoutDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Konfirmasi Logout")
-            .setMessage("Apakah Anda yakin ingin keluar?")
-            .setPositiveButton("Ya") { _, _ ->
-                val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
-                with(sharedPref.edit()) {
-                    clear()
-                    apply()
-                }
-                val intent = Intent(this, AuthActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-                finish()
-            }
-            .setNegativeButton("Tidak") { dialog, _ ->
-                dialog.dismiss()
-                Snackbar.make(binding.root, "Logout dibatalkan", Snackbar.LENGTH_SHORT).show()
-            }
-            .show()
     }
 }

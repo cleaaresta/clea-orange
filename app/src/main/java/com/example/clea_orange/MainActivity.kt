@@ -3,6 +3,7 @@ package com.example.clea_orange
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import com.example.clea_orange.databinding.ActivityMainBinding
 import com.example.clea_orange.Home.pertemuan2.HitungActivity
 import com.example.clea_orange.Home.pertemuan4.Tampilan2Activity
 import com.example.clea_orange.Home.pertemuan4.Tampilan3Activity
+import com.example.clea_orange.Home.pertemuan4.SettingsActivity
 import com.example.clea_orange.Home.pertemuan6.WebViewActivity
 import com.google.android.material.snackbar.Snackbar
 
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         // Mengambil data username dari SharedPreferences
         val sharedPref = getSharedPreferences("user_pref", Context.MODE_PRIVATE)
         val username = sharedPref.getString("username", "Pengguna")
-        binding.tvWelcomeUser.text = getString(R.string.welcome_user, username)
+        binding.tvWelcomeUser.text = "Halo, $username!"
 
         // Menu 1: Bangun Ruang
         binding.btnBangunRuang.setOnClickListener {
@@ -59,9 +61,15 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Logout
-        binding.btnLogout.setOnClickListener {
-            showLogoutDialog()
+        // Menu Settings (ListView - Privacy, About, dll)
+        binding.btnSettings.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+        
+        // Button Laporan Cepat (MaterialButton)
+        binding.btnQuickReport.setOnClickListener {
+            Toast.makeText(this, "Fitur Laporan Cepat akan segera hadir!", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -74,9 +82,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun showLogoutDialog() {
         AlertDialog.Builder(this)
-            .setTitle(R.string.logout_confirm_title)
-            .setMessage(R.string.logout_confirm_msg)
-            .setPositiveButton(R.string.logout_yes) { _, _ ->
+            .setTitle("Konfirmasi Logout")
+            .setMessage("Apakah Anda yakin ingin keluar?")
+            .setPositiveButton("Ya") { _, _ ->
                 val sharedPref = getSharedPreferences("user_pref", Context.MODE_PRIVATE)
                 with(sharedPref.edit()) {
                     clear()
@@ -87,9 +95,8 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-            .setNegativeButton(R.string.logout_no) { dialog, _ ->
+            .setNegativeButton("Tidak") { dialog, _ ->
                 dialog.dismiss()
-                Snackbar.make(binding.root, getString(R.string.logout_cancelled), Snackbar.LENGTH_SHORT).show()
             }
             .show()
     }

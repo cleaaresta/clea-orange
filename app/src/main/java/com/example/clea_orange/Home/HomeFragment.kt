@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.clea_orange.AuthActivity
 import com.example.clea_orange.Home.pertemuan2.HitungActivity
 import com.example.clea_orange.Home.pertemuan4.Tampilan2Activity
 import com.example.clea_orange.Home.pertemuan4.Tampilan3Activity
+import com.example.clea_orange.Home.pertemuan4.SettingsActivity
 import com.example.clea_orange.Home.pertemuan6.WebViewActivity
 import com.example.clea_orange.R
 import com.example.clea_orange.databinding.FragmentHomeBinding
@@ -33,25 +35,41 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Setup Welcome Text dari SharedPreferences
         val sharedPref = requireActivity().getSharedPreferences("user_pref", Context.MODE_PRIVATE)
         val username = sharedPref.getString("username", "Pengguna")
-        binding.tvWelcomeUser.text = getString(R.string.welcome_user, username)
+        binding.tvWelcomeUser.text = "Halo, $username!"
 
+        // Menu 1: Bangun Ruang
         binding.btnBangunRuang.setOnClickListener {
             pindahHalaman(HitungActivity::class.java, "Bangun Ruang", "Menghitung Luas dan Volume")
         }
 
+        // Menu 2: Ekosistem
         binding.btnCustom1.setOnClickListener {
             pindahHalaman(Tampilan2Activity::class.java, "Ekosistem", "Harmoni antara alam dan ketenangan.")
         }
 
+        // Menu 3: Inspirasi
         binding.btnCustom2.setOnClickListener {
             pindahHalaman(Tampilan3Activity::class.java, "Inspirasi", "Sumber kreativitas bagi masa depan.")
         }
 
+        // Menu 4: Web Admin (WebView)
         binding.btnWeb.setOnClickListener {
             val intent = Intent(requireContext(), WebViewActivity::class.java)
             startActivity(intent)
+        }
+
+        // Tombol Settings (ListView - Privacy, About, dll)
+        binding.btnSettings.setOnClickListener {
+            val intent = Intent(requireContext(), SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Tombol Laporan Baru (MaterialButton)
+        binding.btnQuickReport.setOnClickListener {
+            Toast.makeText(requireContext(), "Fitur Laporan akan segera hadir!", Toast.LENGTH_SHORT).show()
         }
 
         // Tombol Logout
@@ -69,9 +87,9 @@ class HomeFragment : Fragment() {
 
     private fun showLogoutDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle(R.string.logout_confirm_title)
-            .setMessage(R.string.logout_confirm_msg)
-            .setPositiveButton(R.string.logout_yes) { _, _ ->
+            .setTitle("Konfirmasi Logout")
+            .setMessage("Apakah Anda yakin ingin keluar?")
+            .setPositiveButton("Ya") { _, _ ->
                 val sharedPref = requireActivity().getSharedPreferences("user_pref", Context.MODE_PRIVATE)
                 with(sharedPref.edit()) {
                     clear()
@@ -82,9 +100,8 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
                 requireActivity().finish()
             }
-            .setNegativeButton(R.string.logout_no) { dialog, _ ->
+            .setNegativeButton("Tidak") { dialog, _ ->
                 dialog.dismiss()
-                Snackbar.make(binding.root, getString(R.string.logout_cancelled), Snackbar.LENGTH_SHORT).show()
             }
             .show()
     }
