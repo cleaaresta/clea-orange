@@ -15,8 +15,10 @@ import com.example.clea_orange.Home.pertemuan4.Tampilan2Activity
 import com.example.clea_orange.Home.pertemuan4.Tampilan3Activity
 import com.example.clea_orange.Home.pertemuan4.SettingsActivity
 import com.example.clea_orange.Home.pertemuan6.WebViewActivity
+import com.example.clea_orange.Home.pertemuan_10.TenthActivity
 import com.example.clea_orange.R
 import com.example.clea_orange.databinding.FragmentHomeBinding
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 
 class HomeFragment : Fragment() {
@@ -40,6 +42,20 @@ class HomeFragment : Fragment() {
         val username = sharedPref.getString("username", "Pengguna")
         binding.tvWelcomeUser.text = "Halo, $username!"
 
+        // Setup ChipGroup listener
+        binding.chipGroupHome.setOnCheckedStateChangeListener { group, checkedIds ->
+            if (checkedIds.isNotEmpty()) {
+                val chipId = checkedIds[0]
+                val selectedChip = view.findViewById<Chip>(chipId)
+                val category = selectedChip.text.toString()
+                
+                // Menampilkan Snackbar sebagai feedback pemilihan chip
+                Snackbar.make(view, "Kategori dipilih: $category", Snackbar.LENGTH_SHORT).show()
+                
+                // Di sini Anda bisa menambahkan logika filter konten berdasarkan kategori
+            }
+        }
+
         // Menu 1: Bangun Ruang
         binding.btnBangunRuang.setOnClickListener {
             pindahHalaman(HitungActivity::class.java, "Bangun Ruang", "Menghitung Luas dan Volume")
@@ -58,6 +74,12 @@ class HomeFragment : Fragment() {
         // Menu 4: Web Admin (WebView)
         binding.btnWeb.setOnClickListener {
             val intent = Intent(requireContext(), WebViewActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Menu Pertemuan 10
+        binding.btnPertemuan10.setOnClickListener {
+            val intent = Intent(requireContext(), TenthActivity::class.java)
             startActivity(intent)
         }
 
