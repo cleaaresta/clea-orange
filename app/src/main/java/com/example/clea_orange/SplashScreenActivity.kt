@@ -27,17 +27,22 @@ class SplashScreenActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            delay(1000) // simulasi loading selama 2 detik
+            delay(1000) // simulasi loading selama 1 detik
             
             val sharedPref = getSharedPreferences("user_pref", Context.MODE_PRIVATE)
             val isLogin = sharedPref.getBoolean("isLogin", false)
+            val isFirstRun = sharedPref.getBoolean("firstRun", true)
 
             if (isLogin) {
-                // Jika sudah login, diarahkan ke BaseActivity yang memiliki BottomNavigation
+                // Jika sudah login, diarahkan ke BaseActivity
                 val intent = Intent(this@SplashScreenActivity, BaseActivity::class.java)
                 startActivity(intent)
+            } else if (isFirstRun) {
+                // Jika pertama kali buka aplikasi, tampilkan Onboarding
+                val intent = Intent(this@SplashScreenActivity, OnboardingActivity::class.java)
+                startActivity(intent)
             } else {
-                // Jika belum, ke halaman Login
+                // Jika sudah pernah lihat onboarding tapi belum login, ke AuthActivity
                 val intent = Intent(this@SplashScreenActivity, AuthActivity::class.java)
                 startActivity(intent)
             }
