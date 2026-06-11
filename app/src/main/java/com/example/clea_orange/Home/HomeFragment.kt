@@ -3,12 +3,14 @@ package com.example.clea_orange.Home
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.clea_orange.AuthActivity
 import com.example.clea_orange.Home.pertemuan2.HitungActivity
 import com.example.clea_orange.Home.pertemuan4.Tampilan2Activity
@@ -16,15 +18,22 @@ import com.example.clea_orange.Home.pertemuan4.Tampilan3Activity
 import com.example.clea_orange.Home.pertemuan4.SettingsActivity
 import com.example.clea_orange.Home.pertemuan6.WebViewActivity
 import com.example.clea_orange.Home.pertemuan_10.TenthActivity
+import com.example.clea_orange.News.NewsAdapter
+import com.example.clea_orange.News.NewsApiService
+import com.example.clea_orange.News.NewsResponse
 import com.example.clea_orange.R
 import com.example.clea_orange.databinding.FragmentHomeBinding
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private lateinit var newsAdapter: NewsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,73 +46,94 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Setup Welcome Text dari SharedPreferences
-        val sharedPref = requireActivity().getSharedPreferences("user_pref", Context.MODE_PRIVATE)
-        val username = sharedPref.getString("username", "Pengguna")
-        binding.tvWelcomeUser.text = "Halo, $username!"
+        setupWelcomeText()
+        setupMenuButtons()
+        setupRecyclerView()
+        fetchNewsData()
 
-        // Setup ChipGroup listener
-        binding.chipGroupHome.setOnCheckedStateChangeListener { group, checkedIds ->
+        binding.chipGroupHome.setOnCheckedStateChangeListener { _, checkedIds ->
             if (checkedIds.isNotEmpty()) {
                 val chipId = checkedIds[0]
                 val selectedChip = view.findViewById<Chip>(chipId)
-                val category = selectedChip.text.toString()
-                
-                // Menampilkan Snackbar sebagai feedback pemilihan chip
-                Snackbar.make(view, "Kategori dipilih: $category", Snackbar.LENGTH_SHORT).show()
-                
-                // Di sini Anda bisa menambahkan logika filter konten berdasarkan kategori
+                Snackbar.make(view, "Kategori: ${selectedChip.text}", Snackbar.LENGTH_SHORT).show()
             }
         }
 
-        // Menu 1: Bangun Ruang
+        binding.btnLogout.setOnClickListener { showLogoutDialog() }
+    }
+
+    private fun setupWelcomeText() {
+        val sharedPref = requireActivity().getSharedPreferences("user_pref", Context.MODE_PRIVATE)
+        val username = sharedPref.getString("username", "Pengguna")
+        binding.tvWelcomeUser.text = "Halo, $username!"
+    }
+
+    private fun setupMenuButtons() {
         binding.btnBangunRuang.setOnClickListener {
             pindahHalaman(HitungActivity::class.java, "Bangun Ruang", "Menghitung Luas dan Volume")
         }
-
-        // Menu 2: Ekosistem
         binding.btnCustom1.setOnClickListener {
             pindahHalaman(Tampilan2Activity::class.java, "Ekosistem", "Harmoni antara alam dan ketenangan.")
         }
-
-        // Menu 3: Inspirasi
         binding.btnCustom2.setOnClickListener {
             pindahHalaman(Tampilan3Activity::class.java, "Inspirasi", "Sumber kreativitas bagi masa depan.")
         }
-
-        // Menu 4: Web Admin (WebView)
         binding.btnWeb.setOnClickListener {
-            val intent = Intent(requireContext(), WebViewActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(requireContext(), WebViewActivity::class.java))
         }
-
-        // Menu Pertemuan 10
-        binding.btnPertemuan10.setOnClickListener {
-            val intent = Intent(requireContext(), TenthActivity::class.java)
-            startActivity(intent)
-        }
-
-        // Tombol Settings (ListView - Privacy, About, dll)
         binding.btnSettings.setOnClickListener {
-            val intent = Intent(requireContext(), SettingsActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(requireContext(), SettingsActivity::class.java))
         }
-
-        // Tombol Laporan Baru (MaterialButton)
         binding.btnQuickReport.setOnClickListener {
             Toast.makeText(requireContext(), "Fitur Laporan akan segera hadir!", Toast.LENGTH_SHORT).show()
         }
+    }
 
-        // Tombol Logout
-        binding.btnLogout.setOnClickListener {
-            showLogoutDialog()
+    private fun setupRecyclerView() {
+        newsAdapter = NewsAdapter(mutableListOf())
+        binding.rvNews.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = newsAdapter
+            isNestedScrollingEnabled = false
         }
     }
 
+    private fun fetchNewsData() {
+        binding.pbNews.visibility = View.VISIBLE
+        NewsApiService.create().getNews().enqueue(object : Callback<NewsResponse> {
+            override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
+                if (!isAdded) return
+                binding.pbNews.visibility = View.GONE
+                
+                if (response.isSuccessful) {
+                    val posts = response.body()?.items
+                    if (!posts.isNullOrEmpty()) {
+                        Log.d("BeritaAPI", "Data Berhasil Dimuat: ${posts.size} item")
+                        newsAdapter.updateData(posts)
+                    } else {
+                        Log.e("BeritaAPI", "Data Berita Kosong")
+                        Toast.makeText(requireContext(), "Tidak ada berita tersedia", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Log.e("BeritaAPI", "Error HTTP: ${response.code()}")
+                    Toast.makeText(requireContext(), "Gagal memuat berita: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+                if (!isAdded) return
+                binding.pbNews.visibility = View.GONE
+                Log.e("BeritaAPI", "Failure: ${t.message}")
+                Toast.makeText(requireContext(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
     private fun pindahHalaman(tujuan: Class<*>, judul: String, desc: String) {
-        val intent = Intent(requireContext(), tujuan)
-        intent.putExtra("EXTRA_JUDUL", judul)
-        intent.putExtra("EXTRA_DESC", desc)
+        val intent = Intent(requireContext(), tujuan).apply {
+            putExtra("EXTRA_JUDUL", judul)
+            putExtra("EXTRA_DESC", desc)
+        }
         startActivity(intent)
     }
 
@@ -112,19 +142,14 @@ class HomeFragment : Fragment() {
             .setTitle("Konfirmasi Logout")
             .setMessage("Apakah Anda yakin ingin keluar?")
             .setPositiveButton("Ya") { _, _ ->
-                val sharedPref = requireActivity().getSharedPreferences("user_pref", Context.MODE_PRIVATE)
-                with(sharedPref.edit()) {
-                    clear()
-                    apply()
+                requireActivity().getSharedPreferences("user_pref", Context.MODE_PRIVATE).edit().clear().apply()
+                val intent = Intent(requireContext(), AuthActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 }
-                val intent = Intent(requireContext(), AuthActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
                 requireActivity().finish()
             }
-            .setNegativeButton("Tidak") { dialog, _ ->
-                dialog.dismiss()
-            }
+            .setNegativeButton("Tidak", null)
             .show()
     }
 

@@ -59,7 +59,7 @@
                     app:tint="@color/primary_blue" />
             </RelativeLayout>
 
-            <!-- 1. TextInputLayout (Search Bar) -->
+            <!-- Search Bar -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- 2. Chip & ChipGroup -->
+            <!-- Chips -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
 
-            <!-- 3. Background Drawable (Banner with Gradient) -->
+            <!-- Banner -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
@@ -167,14 +167,13 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!-- 4. GridLayout -->
+            <!-- Grid Menu -->
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:columnCount="2">
 
-                <!-- Hitung -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/btnBangunRuang"
                     android:layout_width="0dp"
@@ -195,7 +194,6 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Alam -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/btnCustom1"
                     android:layout_width="0dp"
@@ -216,7 +214,6 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Inspirasi -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/btnCustom2"
                     android:layout_width="0dp"
@@ -237,7 +234,6 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Web -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/btnWeb"
                     android:layout_width="0dp"
@@ -258,7 +254,6 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Pertemuan 10 -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/btnPertemuan10"
                     android:layout_width="0dp"
@@ -280,7 +275,39 @@
                 </androidx.cardview.widget.CardView>
             </GridLayout>
 
-            <!-- 5. MaterialButton -->
+            <!-- News Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Berita Terkini"
+                    android:textColor="@color/text_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/pbNews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvNews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_news" />
+            </LinearLayout>
+
+            <!-- Bottom Buttons -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnQuickReport"
                 android:layout_width="match_parent"
