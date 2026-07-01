@@ -4,20 +4,19 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.clea_orange.databinding.ActivityRegistrationBinding
-import com.example.clea_orange.utils.NotificationHelper
 import com.example.clea_orange.utils.PermissionHelper
+import com.example.clea_orange.utils.ReminderHelper // Import Helper Baru
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.util.Calendar // Import Calendar
 
 class RegistrationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistrationBinding
 
-    // Launcher untuk meminta izin notifikasi (Android 13+)
     private val notificationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
@@ -32,7 +31,6 @@ class RegistrationActivity : AppCompatActivity() {
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 1. CEK IZIN SAAT HALAMAN DIBUKA (Sesuai Gambar 3)
         if (PermissionHelper.isNotificationPermissionRequired()) {
             val permission = Manifest.permission.POST_NOTIFICATIONS
             if (!PermissionHelper.hasPermission(this, permission)) {
@@ -51,24 +49,29 @@ class RegistrationActivity : AppCompatActivity() {
             if (nama.isEmpty() || username.isEmpty() || password.isEmpty()) {
                 showErrorDialog("Semua field wajib diisi")
             } else {
-                // Simpan data
                 saveRegistrationData(nama, email, username, password)
-                
-                // 2. SIAPKAN INTENT UNTUK HALAMAN TUJUAN (Sesuai Gambar 4)
-                val intent = Intent(this, SuccessActivity::class.java)
-                
-                // 3. TAMPILKAN NOTIFIKASI
-                NotificationHelper.showNotification(
-                    this,
-                    "Pesanan Anda", // Judul sesuai materi
-                    "Halo $nama, Pesanan Anda Sedang Diproses", // Pesan sesuai materi
-                    intent
+
+                // --- IMPLEMENTASI REMINDER (Sesuai Contoh) ---
+
+                // 1. Tentukan waktu (Contoh: 1 menit dari sekarang)
+                val calendar = Calendar.getInstance().apply {
+                    add(Calendar.MINUTE, 1)
+                }
+
+                // 2. Panggil ReminderHelper
+                ReminderHelper.setReminder(
+                    context = this,
+                    hour = calendar.get(Calendar.HOUR_OF_DAY),
+                    minute = calendar.get(Calendar.MINUTE),
+                    title = "Reminder 1 Menit",
+                    message = "Halo $nama, reminder ini muncul 1 menit setelah registrasi",
+                    targetActivity = SuccessActivity::class.java
                 )
 
-                Toast.makeText(this, "Registrasi Berhasil! Silahkan cek notifikasi Anda.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Silahkan tunggu 1 Menit untuk menerima Notifikasi", Toast.LENGTH_LONG).show()
 
-                // 4. MATIKAN startActivity AGAR BISA TES KLIK NOTIFIKASI (Sesuai Gambar 4)
-                // startActivity(intent) 
+                // Opsional: Jika ingin pindah halaman langsung, aktifkan ini:
+                // startActivity(Intent(this, SuccessActivity::class.java))
                 // finish()
             }
         }
