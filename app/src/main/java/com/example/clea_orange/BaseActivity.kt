@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.clea_orange.About.AboutFragment
 import com.example.clea_orange.Home.HomeFragment
+import com.example.clea_orange.Note.NotesFragment
 import com.example.clea_orange.Profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -34,6 +35,10 @@ class BaseActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_home -> {
                     replaceFragment(HomeFragment())
+                    true
+                }
+                R.id.nav_notes -> {
+                    replaceFragment(NotesFragment())
                     true
                 }
                 R.id.nav_about -> {

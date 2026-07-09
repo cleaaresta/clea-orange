@@ -6,6 +6,11 @@
         android:title="Home" />
 
     <item
+        android:id="@+id/nav_notes"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="Notes" />
+
+    <item
         android:id="@+id/nav_about"
         android:icon="@drawable/ic_info"
         android:title="About" />
@@ -14,5 +19,4 @@
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_person"
         android:title="Profile" />
-
 </menu>
