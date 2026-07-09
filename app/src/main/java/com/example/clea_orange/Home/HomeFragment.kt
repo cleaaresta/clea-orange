@@ -18,6 +18,7 @@ import com.example.clea_orange.Home.pertemuan4.Tampilan3Activity
 import com.example.clea_orange.Home.pertemuan4.SettingsActivity
 import com.example.clea_orange.Home.pertemuan6.WebViewActivity
 import com.example.clea_orange.Home.pertemuan_10.TenthActivity
+import com.example.clea_orange.Home.pertemuan_13.ThirteenthActivity
 import com.example.clea_orange.News.NewsAdapter
 import com.example.clea_orange.News.NewsApiService
 import com.example.clea_orange.News.NewsResponse
@@ -83,6 +84,12 @@ class HomeFragment : Fragment() {
         }
         binding.btnSettings.setOnClickListener {
             startActivity(Intent(requireContext(), SettingsActivity::class.java))
+        }
+        binding.btnPertemuan10.setOnClickListener {
+            startActivity(Intent(requireContext(), TenthActivity::class.java))
+        }
+        binding.btnPertemuan13.setOnClickListener {
+            startActivity(Intent(requireContext(), ThirteenthActivity::class.java))
         }
         binding.btnQuickReport.setOnClickListener {
             Toast.makeText(requireContext(), "Fitur Laporan akan segera hadir!", Toast.LENGTH_SHORT).show()
